@@ -19,7 +19,7 @@ jobs:
 
       - name: BUILD DOCKER IMAGE
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/complete-devops-project:$${{ env.SHORT_SHA}} .
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/complete-devops-project:${{ env.SHORT_SHA}} .
 
       - name: LOGIN TO DOCKERHUB
         run: |
