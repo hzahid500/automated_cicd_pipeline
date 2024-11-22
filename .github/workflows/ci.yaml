@@ -1,5 +1,4 @@
----
-
+--- 
 name: Complete DevOps Project Pipeline
 
 on:
@@ -11,17 +10,21 @@ jobs:
   build_and_push:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
+      - name: CHECKOUT CODE
         uses: actions/checkout@v2
-      - name: Set Short SHA
+
+      - name: SET SHORT SHA
         run: |
-          echo "SHORT_SHA=${GITHUB_SHA:0:7}" >> $GITHUB_ENV
-      - name: Build Docker Image
+          echo "SHORT_SHA=${GITHUB_SHA:0:7}" >> GITHUB_ENV
+
+      - name: BUILD DOCKER IMAGE
         run: |
-          docker build -t hzahid400/complete-devops-project:${{ env.SHORT_SHA }} .
-      - name: Login to DockerHub
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/complete-devops-project:$${{ env.SHORT_SHA}} .
+
+      - name: LOGIN TO DOCKERHUB
         run: |
           echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
-      - name: Push to DockerHub
+
+      - name: PUSH TO DOCKERHUB
         run: |
-          docker push hzahid400/complete-devops-project:${{ env.SHORT_SHA }}
+          docker push ${{ secrets.DOCKERHUB_USERNAME}}/complete-devops-project:${{ env.SHORT_SHA }}
